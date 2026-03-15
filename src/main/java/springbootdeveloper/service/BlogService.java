@@ -42,4 +42,11 @@ public class BlogService {
 
         return article;
     }
+
+    @Transactional
+    public Article findByIdAndIncreaseViews(Long id) {
+        blogRepository.updateViews(id); // 조회수 증가 쿼리 실행
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+    }
 }
